@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Resume Reviewer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>🎯 AI-Powered Resume Reviewer</h1>
+                <p class="subtitle">Get personalized feedback to optimize your resume for any job</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Upload Section -->
+            <section class="upload-section" id="uploadSection">
+                <div class="card">
+                    <h2>📄 Upload Your Resume</h2>
+                    
+                    <form id="resumeForm" enctype="multipart/form-data">
+                        <!-- File Upload -->
+                        <div class="form-group">
+                            <label for="resumeFile">Resume File (PDF, DOCX, or TXT)</label>
+                            <div class="file-upload-wrapper">
+                                <input type="file" id="resumeFile" name="resume" accept=".pdf,.docx,.txt" required>
+                                <div class="file-upload-display">
+                                    <span class="file-icon">📎</span>
+                                    <span class="file-text">Choose a file or drag it here</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Job Description -->
+                        <div class="form-group">
+                            <label for="jobDescription">Job Description</label>
+                            <textarea 
+                                id="jobDescription" 
+                                name="job_description" 
+                                rows="8" 
+                                placeholder="Paste the complete job description here...&#10;&#10;Include:&#10;• Required qualifications&#10;• Responsibilities&#10;• Skills and technologies&#10;• Experience requirements"
+                                required
+                            ></textarea>
+                            <small class="form-hint">Minimum 50 characters</small>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary" id="analyzeBtn">
+                            <span class="btn-text">Analyze Resume</span>
+                            <span class="btn-loader" style="display: none;">
+                                <span class="spinner"></span> Analyzing...
+                            </span>
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <div class="card">
+                    <div class="results-header">
+                        <h2>📊 Analysis Results</h2>
+                        <button class="btn btn-secondary btn-small" id="newAnalysisBtn">New Analysis</button>
+                    </div>
+
+                    <!-- Score Cards -->
+                    <div class="score-cards">
+                        <div class="score-card">
+                            <div class="score-label">Overall Match</div>
+                            <div class="score-value" id="overallScore">0</div>
+                            <div class="score-bar">
+                                <div class="score-fill" id="overallScoreFill"></div>
+                            </div>
+                        </div>
+                        <div class="score-card">
+                            <div class="score-label">ATS Compatibility</div>
+                            <div class="score-value" id="atsScore">0</div>
+                            <div class="score-bar">
+                                <div class="score-fill" id="atsScoreFill"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Match Summary -->
+                    <div class="summary-box" id="matchSummary">
+                        <h3>Summary</h3>
+                        <p id="summaryText"></p>
+                    </div>
+
+                    <!-- Strengths and Weaknesses -->
+                    <div class="two-column">
+                        <div class="strengths-box">
+                            <h3>✅ Strengths</h3>
+                            <ul id="strengthsList"></ul>
+                        </div>
+                        <div class="weaknesses-box">
+                            <h3>⚠️ Areas for Improvement</h3>
+                            <ul id="weaknessesList"></ul>
+                        </div>
+                    </div>
+
+                    <!-- Missing Keywords -->
+                    <div class="keywords-box" id="keywordsBox">
+                        <h3>🔑 Missing Keywords</h3>
+                        <div class="keywords-container" id="keywordsList"></div>
+                    </div>
+
+                    <!-- Suggestions -->
+                    <div class="suggestions-box">
+                        <h3>💡 Personalized Suggestions</h3>
+                        <div id="suggestionsList"></div>
+                    </div>
+
+                    <!-- ATS Tips -->
+                    <div class="tips-box">
+                        <h3>🤖 ATS Optimization Tips</h3>
+                        <ul id="atsTipsList"></ul>
+                    </div>
+
+                    <!-- Recommended Sections -->
+                    <div class="sections-box" id="sectionsBox">
+                        <h3>📝 Recommended Sections to Add/Improve</h3>
+                        <div class="sections-container" id="sectionsList"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Error Message -->
+            <div class="error-message" id="errorMessage" style="display: none;">
+                <span class="error-icon">❌</span>
+                <span class="error-text" id="errorText"></span>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Built with ❤️ using AI | Helping job seekers land their dream roles</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
